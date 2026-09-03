@@ -17,3 +17,18 @@
 .animate-testimonials {
   animation: testimonials 25s linear infinite;
 }
+
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #0f1115;
+}
+
+body {
+  overflow-x: hidden;
+}
