@@ -442,9 +442,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* =====================================================
-                NEW ABOUT VISUAL
-            ===================================================== */}
+            {/*   NEW ABOUT VISUAL */}
             <div className="relative min-h-[500px] flex items-center justify-center">
 
               {/* Background particles */}
@@ -547,7 +545,7 @@ export default function Home() {
                   </p>
 
                   <p className={`text-xl font-semibold ${c.accent} mt-1`}>
-                    3+
+                    2+
                   </p>
 
                   <p className={`text-[10px] ${c.muted}`}>
