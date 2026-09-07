@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Download, Code2, Smartphone, Server } from "lucide-react";
+import { ArrowUpRight, Download, Code2, Smartphone, Server, Sparkles, Terminal,} from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import SocialLinks from "../components/SocialLinks";
 import { SKILLS } from "../data/skills";
@@ -12,11 +13,38 @@ import profileImage from "../assests/projects/portfolio1.png";
 export default function Home() {
   const { c } = useTheme();
 
+  const [isHeroDancing, setIsHeroDancing] = useState(false);
+  const [isAboutDancing, setIsAboutDancing] = useState(false);
+
+  const handleHeroClick = () => {
+    setIsHeroDancing(false);
+
+    requestAnimationFrame(() => {
+      setIsHeroDancing(true);
+    });
+
+    setTimeout(() => {
+      setIsHeroDancing(false);
+    }, 900);
+  };
+
+  const handleAboutClick = () => {
+    setIsAboutDancing(false);
+
+    requestAnimationFrame(() => {
+      setIsAboutDancing(true);
+    });
+
+    setTimeout(() => {
+      setIsAboutDancing(false);
+    }, 700);
+  };
+
   return (
     <>
-
+      {/*  HERO */}
       <Reveal>
-        <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
+        <section className="max-w-6xl mx-auto px-6 pt-16 pb-24 sm:pt-24 sm:pb-32">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-20 items-center">
 
             {/* Hero content */}
@@ -63,45 +91,117 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero profile image */}
+            {/*   HERO PROFILE IMAGE */}
             <div className="relative flex justify-center lg:justify-end">
-              {/* Particle background */}
               <div className="absolute inset-0 -z-10">
                 <GentleParticles />
               </div>
 
               <div className="relative w-full max-w-sm sm:max-w-md">
 
-                {/* Decorative frame */}
+                {/* Ambient glow */}
                 <div
-                  className={`absolute -inset-3 rounded-[2rem] border ${c.border} rotate-3 opacity-60`}
+                  className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full ${c.accentBg} opacity-[0.08] blur-3xl`}
+                />
+
+                {/* Decorative frames */}
+                <div
+                  className={`absolute -inset-4 rounded-[2.2rem] border ${c.border} rotate-3 opacity-40`}
                 />
 
                 <div
-                  className={`absolute -inset-3 rounded-[2rem] border ${c.border} -rotate-2 opacity-30`}
+                  className={`absolute -inset-4 rounded-[2.2rem] border ${c.border} -rotate-2 opacity-20`}
                 />
 
-                {/* Image */}
-                <div
-                  className={`relative overflow-hidden rounded-[2rem] border ${c.border} ${c.surface} shadow-2xl`}
+                {/* Interactive image */}
+                <button
+                  type="button"
+                  onClick={handleHeroClick}
+                  aria-label="Interact with profile picture"
+                  className={`relative block w-full text-left rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-[#1ED760] focus-visible:ring-offset-4 ${
+                    isHeroDancing ? "profile-dance" : "profile-float"
+                  }`}
                 >
-                  <img
-                    src={profileImage}
-                    alt="Professional portrait"
-                    className="w-full aspect-[4/5] object-cover"
-                  />
+                  <div
+                    className={`relative overflow-hidden rounded-[2rem] border ${c.border} ${c.surface} shadow-2xl cursor-pointer`}
+                  >
+                    <img
+                      src={profileImage}
+                      alt="Kayode — Full Software Engineer"
+                      className="w-full aspect-[4/5] object-cover transition-transform duration-700 ease-out hover:scale-[1.025]"
+                    />
+
+                    {/* Image overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Image status */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between px-4 py-3 rounded-2xl bg-black/35 backdrop-blur-md border border-white/15 text-white">
+                      <div className="flex items-center gap-2">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1ED760] opacity-60" />
+                          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#1ED760]" />
+                        </span>
+
+                        <span className="text-xs font-medium">
+                          Full Software Engineer
+                        </span>
+                      </div>
+
+                      <span className="text-[10px] uppercase tracking-wider opacity-70">
+                        Tap me
+                      </span>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Experience badge */}
+                <div
+                  className={`absolute -right-5 sm:-right-10 top-8 sm:top-10 z-20 ${c.surface} border ${c.border} rounded-2xl px-4 py-3.5 shadow-xl backdrop-blur-xl animate-floating-badge`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-xl ${c.accentBg} flex items-center justify-center text-black shadow-lg`}
+                    >
+                      <Sparkles size={18} />
+                    </div>
+
+                    <div>
+                      <p
+                        className={`text-[10px] uppercase tracking-widest ${c.muted}`}
+                      >
+                        Experience
+                      </p>
+
+                      <p className="text-sm font-semibold mt-0.5">
+                        2+ Years
+                      </p>
+
+                      <p className={`text-[11px] ${c.muted}`}>
+                        Building digital products
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Small floating label */}
+                {/* Availability badge */}
                 <div
-                  className={`absolute -bottom-5 -left-4 sm:-left-8 px-4 py-3 rounded-2xl ${c.surface} border ${c.border} backdrop-blur-md shadow-lg`}
+                  className={`absolute -left-5 sm:-left-10 bottom-7 z-20 ${c.surface} border ${c.border} rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl`}
                 >
-                  <p className={`font-mono text-xs ${c.muted}`}>
-                    BUILDING WITH
-                  </p>
-                  <p className="font-medium text-sm mt-1">
-                    purpose &amp; precision.
-                  </p>
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full ${c.accentBg} shadow-[0_0_12px_rgba(30,215,96,0.6)]`}
+                    />
+
+                    <div>
+                      <p className="text-xs font-semibold">
+                        Available for work
+                      </p>
+
+                      <p className={`text-[10px] ${c.muted} mt-0.5`}>
+                        Let's build something meaningful.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +209,7 @@ export default function Home() {
         </section>
       </Reveal>
 
-      {/*  INTRO / SERVICES */}
+      {/* WHAT I DO*/}
       <Reveal>
         <section
           className={`${c.surface} border-y ${c.border} py-20 sm:py-24 transition-colors duration-300`}
@@ -235,7 +335,7 @@ export default function Home() {
         </section>
       </Reveal>
 
-      {/*   TESTIMONIALS */}
+      {/* TESTIMONIAL */}
       <section
         className={`${c.surface} border-y ${c.border} py-24 sm:py-28 overflow-hidden`}
       >
@@ -245,7 +345,7 @@ export default function Home() {
           </p>
 
           <h2 className="font-serif text-3xl sm:text-4xl">
-            What people say
+            Built with people, not just code.
           </h2>
         </div>
 
@@ -260,9 +360,7 @@ export default function Home() {
                   &ldquo;{t.quote}&rdquo;
                 </p>
 
-                <p className="font-medium">
-                  {t.name}
-                </p>
+                <p className="font-medium">{t.name}</p>
 
                 <p className={`text-sm ${c.muted} mt-1`}>
                   {t.role}
@@ -273,7 +371,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT */}
+      {/* ABOUT ME */}
       <Reveal>
         <section className="max-w-6xl mx-auto px-6 py-24 sm:py-28">
           <div className="grid lg:grid-cols-[1fr_0.8fr] gap-14 lg:gap-24 items-center">
@@ -344,44 +442,140 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Secondary image / visual */}
-            <div className="relative min-h-[420px] flex items-center justify-center">
+            {/* =====================================================
+                NEW ABOUT VISUAL
+            ===================================================== */}
+            <div className="relative min-h-[500px] flex items-center justify-center">
 
-              {/* Particles */}
+              {/* Background particles */}
               <div className="absolute inset-0">
                 <GentleParticles />
               </div>
 
-              {/* Image card */}
+              {/* Ambient glow */}
+              <div
+                className={`absolute w-72 h-72 rounded-full ${c.accentBg} opacity-[0.06] blur-3xl`}
+              />
+
               <div className="relative w-full max-w-sm">
 
+                {/* Decorative rotated frame */}
                 <div
-                  className={`absolute -inset-3 rounded-[2rem] border ${c.border} -rotate-3 opacity-40`}
+                  className={`absolute -inset-4 rounded-[2.5rem] border ${c.border} rotate-6 opacity-30`}
                 />
 
                 <div
-                  className={`relative overflow-hidden rounded-[2rem] border ${c.border} ${c.surface}`}
-                >
-                  <img
-                    src={profileImage}
-                    alt="Portrait"
-                    className="w-full aspect-[4/5] object-cover"
-                  />
-                </div>
+                  className={`absolute -inset-4 rounded-[2.5rem] border ${c.border} -rotate-3 opacity-20`}
+                />
 
-                {/* Floating status */}
-                <div
-                  className={`absolute -right-4 sm:-right-8 top-8 px-4 py-3 rounded-2xl ${c.surface} border ${c.border} shadow-lg`}
+                {/* Main image */}
+                <button
+                  type="button"
+                  onClick={handleAboutClick}
+                  aria-label="Interact with Kayode's profile picture"
+                  className={`relative block w-full text-left outline-none rounded-[2.5rem] ${
+                    isAboutDancing ? "about-image-dance" : ""
+                  }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`w-2 h-2 rounded-full ${c.accentBg}`}
+                  <div
+                    className={`relative overflow-hidden rounded-[2.5rem] border ${c.border} ${c.surface} shadow-2xl cursor-pointer group`}
+                  >
+                    <img
+                      src={profileImage}
+                      alt="Kayode Omoniyi — Software Engineer"
+                      className="w-full aspect-[4/5] object-cover transition-all duration-700 group-hover:scale-[1.04]"
                     />
-                    <span className="text-sm font-medium">
-                      Building
-                    </span>
+
+                    {/* Dark gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
+
+                    {/* Image information */}
+                    <div className="absolute left-6 right-6 bottom-6 text-white">
+                      <div className="flex items-end justify-between gap-4">
+
+                        <div>
+                          <p className="text-[10px] uppercase tracking-[0.25em] opacity-70 mb-2">
+                            Software Engineer
+                          </p>
+
+                          <h3 className="font-serif text-2xl sm:text-3xl">
+                            Kayode Omoniyi
+                          </h3>
+                        </div>
+
+                        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-45">
+                          <ArrowUpRight size={18} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Top-left label */}
+                <div
+                  className={`absolute -left-6 sm:-left-10 top-10 z-20 ${c.surface} border ${c.border} rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`w-8 h-8 rounded-xl ${c.pill} flex items-center justify-center`}
+                    >
+                      <Terminal size={15} />
+                    </div>
+
+                    <div>
+                      <p
+                        className={`text-[9px] uppercase tracking-widest ${c.muted}`}
+                      >
+                        About the engineer
+                      </p>
+
+                      <p className="text-xs font-semibold mt-0.5">
+                        Building &amp; shipping
+                      </p>
+                    </div>
                   </div>
                 </div>
+
+                {/* Right experience label */}
+                <div
+                  className={`absolute -right-5 sm:-right-9 top-1/2 -translate-y-1/2 z-20 ${c.surface} border ${c.border} rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl`}
+                >
+                  <p
+                    className={`text-[9px] uppercase tracking-widest ${c.muted}`}
+                  >
+                    Experience
+                  </p>
+
+                  <p className={`text-xl font-semibold ${c.accent} mt-1`}>
+                    3+
+                  </p>
+
+                  <p className={`text-[10px] ${c.muted}`}>
+                    Years
+                  </p>
+                </div>
+
+                {/* Bottom-left year label */}
+                <div
+                  className={`absolute -left-4 sm:-left-8 bottom-8 z-20 ${c.surface} border ${c.border} rounded-2xl px-4 py-3 shadow-xl backdrop-blur-xl`}
+                >
+                  <p
+                    className={`font-mono text-[10px] ${c.accent}`}
+                  >
+                    2026
+                  </p>
+
+                  <p className="text-xs font-medium mt-1">
+                    Building meaningful
+                    <br />
+                    digital products.
+                  </p>
+                </div>
+
+                {/* Decorative corner */}
+                <div
+                  className={`absolute -right-2 -bottom-5 w-16 h-16 rounded-2xl border ${c.border} opacity-40 rotate-12 -z-10`}
+                />
               </div>
             </div>
           </div>
@@ -394,6 +588,7 @@ export default function Home() {
           className={`${c.surface} border-t ${c.border} py-24 sm:py-28`}
         >
           <div className="max-w-4xl mx-auto px-6 text-center">
+
             <p className={`font-mono text-sm ${c.accent} mb-4`}>
               HAVE A PROJECT IN MIND?
             </p>
@@ -423,6 +618,109 @@ export default function Home() {
           </div>
         </section>
       </Reveal>
+
+      {/*  ANIMATIONS */}
+
+      <style>{`
+        @keyframes profileFloat {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+
+          50% {
+            transform: translateY(-7px) rotate(0.4deg);
+          }
+        }
+
+        @keyframes profileDance {
+          0% {
+            transform: translateX(0) rotate(0deg) scale(1);
+          }
+
+          15% {
+            transform: translateX(-8px) rotate(-2deg) scale(1.01);
+          }
+
+          30% {
+            transform: translateX(8px) rotate(2deg) scale(1.02);
+          }
+
+          45% {
+            transform: translateX(-7px) rotate(-1.7deg) scale(1.01);
+          }
+
+          60% {
+            transform: translateX(6px) rotate(1.5deg) scale(1.01);
+          }
+
+          75% {
+            transform: translateX(-3px) rotate(-0.8deg) scale(1);
+          }
+
+          100% {
+            transform: translateX(0) rotate(0deg) scale(1);
+          }
+        }
+
+        @keyframes aboutImageDance {
+          0% {
+            transform: rotate(0deg) translateY(0) scale(1);
+          }
+
+          25% {
+            transform: rotate(-2deg) translateY(-4px) scale(1.015);
+          }
+
+          50% {
+            transform: rotate(2deg) translateY(-7px) scale(1.025);
+          }
+
+          75% {
+            transform: rotate(-1deg) translateY(-3px) scale(1.01);
+          }
+
+          100% {
+            transform: rotate(0deg) translateY(0) scale(1);
+          }
+        }
+
+        @keyframes floatingBadge {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-6px);
+          }
+        }
+
+        .profile-float {
+          animation: profileFloat 4.5s ease-in-out infinite;
+        }
+
+        .profile-dance {
+          animation: profileDance 900ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+        }
+
+        .about-image-dance {
+          animation: aboutImageDance 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .animate-floating-badge {
+          animation: floatingBadge 3.5s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .profile-float,
+          .profile-dance,
+          .about-image-dance,
+          .animate-floating-badge {
+            animation: none;
+          }
+        }
+      `}</style>
     </>
   );
 }
