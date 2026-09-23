@@ -1,5 +1,6 @@
 import fraudlensImage from "../assests/projects/fraudlens.png"
 import pulsebeatImage from "../assests/projects/pulsebeat.png"
+import adunniImage from "../assests/projects/adunni.png"
 
 export const WORK = [
   {
@@ -30,5 +31,15 @@ export const WORK = [
       "A multi-tenant gym management platform connecting gyms, staff, and members through web dashboards and mobile experiences.",
     stack: ["React", "Node.js", "PostgreSQL", "AWS"],
     url: null,
+  },
+   {
+    year: "2026",
+    name: "ADÙNNÍ Jewelry Website",
+    role: "E-commerce · Frontend",
+    blurb:
+      "A modern jewelry e-commerce website designed to showcase and sell unique pieces with an emphasis on user experience and visual appeal.",
+    stack: ["React", "JavaScript", "CSS", "HTML"],
+    url: "https://adunni-jew.vercel.app/",
+    image: adunniImage
   },
 ];
